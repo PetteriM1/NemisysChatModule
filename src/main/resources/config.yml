@@ -1,0 +1,2 @@
+chat_format: "§7[%server%] %player%: %message%"
+log_messages: false

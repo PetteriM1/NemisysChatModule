@@ -1,2 +1,10 @@
+# chat formatting, does not affect on server the message is sent from
 chat_format: "§7[%server%] %player%: %message%"
+# log all messages
 log_messages: false
+# servers that don't send messages
+chat_disabled_from:
+  - "example"
+# servers that don't receive messages
+chat_disabled_to:
+  - "example"

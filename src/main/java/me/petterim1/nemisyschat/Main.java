@@ -1,5 +1,6 @@
 package me.petterim1.nemisyschat;
 
+import org.itxtech.nemisys.Client;
 import org.itxtech.nemisys.Player;
 import org.itxtech.nemisys.event.EventHandler;
 import org.itxtech.nemisys.event.Listener;
@@ -22,16 +23,24 @@ public class Main extends PluginBase implements Listener {
     public void onChat(PlayerChatEvent e) {
         Player p = e.getPlayer();
 
+        if (config.getStringList("chat_disabled_from").contains(p.getClient().getDescription())) {
+            return;
+        }
+
         if (config.getBoolean("log_messages")) {
             getServer().getLogger().info(config.getString("chat_format").replace("%server%", p.getClient().getDescription()).replace("%player%", p.getName()).replace("%message%", e.getMessage()).replaceAll("§", "\u00A7"));
         }
 
-        getServer().getClients().forEach((s, c) -> {
+        for (Client c : getServer().getClients().values()) {
+            if (config.getStringList("chat_disabled_to").contains(c.getDescription())) {
+                continue;
+            }
+
             if (!c.getDescription().equals(p.getClient().getDescription())) {
                 c.getPlayers().forEach((u, pl) -> {
                     pl.sendMessage(config.getString("chat_format").replace("%server%", p.getClient().getDescription()).replace("%player%", p.getName()).replace("%message%", e.getMessage()).replaceAll("§", "\u00A7"));
                 });
             }
-        });
+        }
     }
 }

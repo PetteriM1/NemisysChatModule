@@ -6,7 +6,7 @@
     <name>NemisysChatModule</name>
     <groupId>me.petterim1.nemisyschat</groupId>
     <artifactId>NemisysChatModule</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>

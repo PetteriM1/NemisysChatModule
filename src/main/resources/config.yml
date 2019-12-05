@@ -2,6 +2,8 @@
 chat_format: "§7[%server%] %player%: %message%"
 # log all messages
 log_messages: false
+# enable spam filter
+spam_filter: false
 # servers that don't send messages
 chat_disabled_from:
   - "example"

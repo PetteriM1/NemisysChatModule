@@ -10,7 +10,10 @@ import org.itxtech.nemisys.utils.Config;
 
 public class Main extends PluginBase implements Listener {
 
-    Config config;
+    private static Config config;
+
+    private String lastMessage;
+    private String lastPlayer;
 
     @Override
     public void onEnable() {
@@ -27,8 +30,17 @@ public class Main extends PluginBase implements Listener {
             return;
         }
 
+        String name = p.getName();
+        String message = e.getMessage();
+
+        if (config.getBoolean("spam_filter")) {
+            if (message.equals(lastMessage) && name.equals(lastPlayer)) return;
+            lastMessage = message;
+            lastPlayer = name;
+        }
+
         if (config.getBoolean("log_messages")) {
-            getServer().getLogger().info(config.getString("chat_format").replace("%server%", p.getClient().getDescription()).replace("%player%", p.getName()).replace("%message%", e.getMessage()).replaceAll("§", "\u00A7"));
+            getServer().getLogger().info(config.getString("chat_format").replace("%server%", p.getClient().getDescription()).replace("%player%", name).replace("%message%", message).replaceAll("§", "\u00A7"));
         }
 
         for (Client c : getServer().getClients().values()) {
@@ -38,7 +50,7 @@ public class Main extends PluginBase implements Listener {
 
             if (!c.getDescription().equals(p.getClient().getDescription())) {
                 c.getPlayers().forEach((u, pl) -> {
-                    pl.sendMessage(config.getString("chat_format").replace("%server%", p.getClient().getDescription()).replace("%player%", p.getName()).replace("%message%", e.getMessage()).replaceAll("§", "\u00A7"));
+                    pl.sendMessage(config.getString("chat_format").replace("%server%", p.getClient().getDescription()).replace("%player%", name).replace("%message%", message).replaceAll("§", "\u00A7"));
                 });
             }
         }

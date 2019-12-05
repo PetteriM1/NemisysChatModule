@@ -30,7 +30,6 @@ local.properties
 modules.xml
 .idea/misc.xml
 *.ipr
-# Compiled class file
 *.class
 *.log
 .mtj.tmp/

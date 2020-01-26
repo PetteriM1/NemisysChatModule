@@ -1,5 +1,5 @@
 name: NemisysChatModule
 main: me.petterim1.nemisyschat.Main
-version: "${pom.version}"
+version: "1.0.2"
 api: ["1.0.0"]
 author: PetteriM1
